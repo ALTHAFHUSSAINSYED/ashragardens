@@ -66,7 +66,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation Links (Uniform spacing, strictly single-line) */}
-          <nav className="hidden lg:flex items-center justify-center gap-5 xl:gap-7 text-[13px] font-semibold tracking-wide text-stone-700">
+          <nav className="hidden lg:flex items-center justify-center gap-3.5 xl:gap-5 text-xs xl:text-[13px] font-semibold tracking-wide text-stone-700">
             {SITE_CONFIG.navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -86,43 +86,37 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Prominent Action CTA: Cart, WhatsApp Us & Direct SMS Helpline */}
-          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+          {/* Compact Action CTA: Cart & WhatsApp (Never overflows viewport) */}
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
             {/* Cart Trigger with Live Counter Badge */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 transition-transform hover:scale-105 shrink-0"
+              className="relative p-2 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 transition-transform hover:scale-105 shrink-0"
               aria-label="View Shopping Cart"
             >
-              <ShoppingBag className="w-5 h-5 text-emerald-800" />
+              <ShoppingBag className="w-4.5 h-4.5 text-emerald-800" />
               {totalCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#062419] text-amber-300 text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white shadow-sm">
+                <span className="absolute -top-1 -right-1 bg-[#062419] text-amber-300 text-[10px] font-bold rounded-full w-4.5 h-4.5 flex items-center justify-center border-2 border-white shadow-sm">
                   {totalCount}
                 </span>
               )}
             </button>
 
-            <a
-              href={`tel:${SITE_CONFIG.contact.phone.replace(/\s+/g, "")}`}
-              className="hidden xl:inline-block px-4 py-2.5 rounded-full border border-stone-300 hover:border-emerald-700 text-stone-700 text-xs font-semibold tracking-wide transition-all whitespace-nowrap"
-            >
-              Call Helpline
-            </a>
-
+            {/* Compact WhatsApp Us Button */}
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 px-4.5 py-2.5 rounded-full bg-[#1e7e34] hover:bg-[#155724] text-white text-xs font-bold tracking-wide shadow-md transition-all hover:scale-105 whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#1e7e34] hover:bg-[#155724] text-white text-xs font-bold tracking-wide shadow-sm transition-all hover:scale-105 whitespace-nowrap shrink-0"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-200" />
-              <span>WhatsApp Us</span>
+              <MessageSquare className="w-3.5 h-3.5 text-emerald-200" />
+              <span>WhatsApp</span>
             </a>
 
             {/* Mobile Hamburger Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2.5 rounded-xl bg-stone-100 border border-stone-200 text-stone-800"
+              className="lg:hidden p-2 rounded-xl bg-stone-100 border border-stone-200 text-stone-800"
               aria-label="Toggle Navigation"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
