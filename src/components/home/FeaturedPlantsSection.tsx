@@ -6,9 +6,11 @@ import Image from "next/image";
 import { STATIC_PRODUCTS } from "@/data/products";
 import { getProductWhatsAppUrl } from "@/lib/whatsapp";
 import { getProductSmsUrl } from "@/lib/sms";
-import { MessageSquare, ArrowRight, CheckCircle2, Phone } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { MessageSquare, ArrowRight, CheckCircle2, Phone, ShoppingBag } from "lucide-react";
 
 export default function FeaturedPlantsSection() {
+  const { addToCart } = useCart();
   const featured = STATIC_PRODUCTS.filter((p) => p.featured).slice(0, 4);
 
   return (
@@ -92,12 +94,21 @@ export default function FeaturedPlantsSection() {
                   </div>
                 </div>
 
-                {/* Card Actions: View Details + Primary SMS & Secondary WhatsApp */}
+                {/* Card Actions: Add to Cart + View Details & Direct Inquiries */}
                 <div className="p-6 pt-0 space-y-2.5">
+                  {/* Add to Cart Button */}
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="w-full py-2.5 rounded-xl bg-[#062419] hover:bg-[#0c3827] text-white text-center text-xs font-bold tracking-wide transition-all flex items-center justify-center gap-2 shadow-sm hover:scale-[1.01]"
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5 text-amber-300" />
+                    <span>Add to Cart</span>
+                  </button>
+
                   <div className="grid grid-cols-2 gap-2">
                     <Link
                       href={`/products/${product.slug}`}
-                      className="w-full py-2.5 rounded-xl border border-stone-300 hover:border-emerald-700 text-stone-700 text-center text-xs font-semibold tracking-wide transition-all"
+                      className="w-full py-2 rounded-xl border border-stone-300 hover:border-emerald-700 text-stone-700 text-center text-xs font-semibold tracking-wide transition-all"
                     >
                       View Details
                     </Link>
@@ -105,24 +116,13 @@ export default function FeaturedPlantsSection() {
                     {/* Primary SMS Order */}
                     <a
                       href={smsUrl}
-                      className="w-full py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-center text-xs font-semibold tracking-wide transition-all flex items-center justify-center gap-1.5 shadow-sm"
+                      className="w-full py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-center text-xs font-semibold tracking-wide transition-all flex items-center justify-center gap-1.5"
                       title="Order via SMS"
                     >
-                      <Phone className="w-3.5 h-3.5 text-amber-300" />
+                      <Phone className="w-3.5 h-3.5 text-emerald-800" />
                       <span>SMS Order</span>
                     </a>
                   </div>
-
-                  {/* Secondary WhatsApp Order */}
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-center text-xs font-semibold tracking-wide transition-all flex items-center justify-center gap-2"
-                  >
-                    <MessageSquare className="w-3.5 h-3.5 text-[#1e7e34]" />
-                    <span>WhatsApp Order</span>
-                  </a>
                 </div>
               </div>
             );

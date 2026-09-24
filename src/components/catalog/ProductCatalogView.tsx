@@ -6,7 +6,8 @@ import Image from "next/image";
 import { STATIC_PRODUCTS, Product, ProductAvailability } from "@/data/products";
 import { getProductWhatsAppUrl } from "@/lib/whatsapp";
 import { getProductSmsUrl } from "@/lib/sms";
-import { Search, Filter, MessageSquare, Phone, ArrowLeft, ArrowUpDown } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { Search, Filter, MessageSquare, Phone, ArrowLeft, ArrowUpDown, ShoppingBag } from "lucide-react";
 
 interface ProductCatalogViewProps {
   initialCategory?: string;
@@ -17,6 +18,7 @@ export default function ProductCatalogView({
   initialCategory = "all",
   pageTitle = "Nursery Plants & Garden Catalog",
 }: ProductCatalogViewProps) {
+  const { addToCart } = useCart();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [selectedAvailability, setSelectedAvailability] = useState<string>("all");
@@ -218,34 +220,32 @@ export default function ProductCatalogView({
                   </div>
                 </div>
 
-                {/* Actions */}
-                <div className="p-6 pt-0 space-y-2">
+                {/* Actions: Add to Cart + Details & Orders */}
+                <div className="p-6 pt-0 space-y-2.5">
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="w-full py-2.5 rounded-xl bg-[#062419] hover:bg-[#0c3827] text-white text-center text-xs font-bold tracking-wide transition-all flex items-center justify-center gap-2 shadow-sm hover:scale-[1.01]"
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5 text-amber-300" />
+                    <span>Add to Cart</span>
+                  </button>
+
                   <div className="grid grid-cols-2 gap-2">
                     <Link
                       href={`/products/${product.slug}`}
-                      className="w-full py-2.5 rounded-xl border border-stone-300 hover:border-emerald-700 text-stone-800 text-center text-xs font-semibold transition-all"
+                      className="w-full py-2 rounded-xl border border-stone-300 hover:border-emerald-700 text-stone-800 text-center text-xs font-semibold transition-all"
                     >
                       View Details
                     </Link>
 
                     <a
                       href={smsUrl}
-                      className="w-full py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-center text-xs font-semibold transition-all flex items-center justify-center gap-1.5 shadow-sm"
+                      className="w-full py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-center text-xs font-semibold transition-all flex items-center justify-center gap-1.5"
                     >
-                      <Phone className="w-3.5 h-3.5 text-amber-300" />
+                      <Phone className="w-3.5 h-3.5 text-emerald-800" />
                       <span>SMS Order</span>
                     </a>
                   </div>
-
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-center text-xs font-semibold transition-all flex items-center justify-center gap-2"
-                  >
-                    <MessageSquare className="w-3.5 h-3.5 text-[#1e7e34]" />
-                    <span>WhatsApp Order</span>
-                  </a>
                 </div>
               </div>
             );

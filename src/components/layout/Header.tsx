@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import AshraLogo from "@/components/ui/AshraLogo";
 import { SITE_CONFIG } from "@/data/site";
 import { getGeneralWhatsAppUrl } from "@/lib/whatsapp";
+import { useCart } from "@/context/CartContext";
 import {
   MessageSquare,
   Phone,
@@ -14,11 +15,13 @@ import {
   MapPin,
   Clock,
   Sparkles,
+  ShoppingBag,
 } from "lucide-react";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { totalCount, setIsCartOpen } = useCart();
 
   const whatsappUrl = getGeneralWhatsAppUrl();
 
@@ -83,11 +86,25 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Prominent Action CTA: WhatsApp Us & Direct SMS Helpline */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Prominent Action CTA: Cart, WhatsApp Us & Direct SMS Helpline */}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Cart Trigger with Live Counter Badge */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 transition-transform hover:scale-105"
+              aria-label="View Shopping Cart"
+            >
+              <ShoppingBag className="w-5 h-5 text-emerald-800" />
+              {totalCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#062419] text-amber-300 text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white shadow-sm">
+                  {totalCount}
+                </span>
+              )}
+            </button>
+
             <a
               href={`tel:${SITE_CONFIG.contact.phone.replace(/\s+/g, "")}`}
-              className="px-4 py-2.5 rounded-full border border-stone-300 hover:border-emerald-700 text-stone-700 text-xs font-semibold tracking-wide transition-all"
+              className="hidden sm:inline-block px-4 py-2.5 rounded-full border border-stone-300 hover:border-emerald-700 text-stone-700 text-xs font-semibold tracking-wide transition-all"
             >
               Call Helpline
             </a>
@@ -96,23 +113,23 @@ export default function Header() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1e7e34] hover:bg-[#155724] text-white text-xs font-bold tracking-wide shadow-md transition-all hover:scale-105"
+              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1e7e34] hover:bg-[#155724] text-white text-xs font-bold tracking-wide shadow-md transition-all hover:scale-105"
             >
               <MessageSquare className="w-4 h-4 text-emerald-200" />
               <span>WhatsApp Us</span>
             </a>
-          </div>
 
-          {/* Mobile Hamburger Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2.5 rounded-xl bg-stone-100 border border-stone-200 text-stone-800"
-            aria-label="Toggle Navigation"
-          >
+            {/* Mobile Hamburger Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2.5 rounded-xl bg-stone-100 border border-stone-200 text-stone-800"
+              aria-label="Toggle Navigation"
+            >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
+    </div>
 
       {/* 3. Mobile Navigation Drawer */}
       {mobileMenuOpen && (

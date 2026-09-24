@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import { STATIC_PRODUCTS } from "@/data/products";
 import { getProductWhatsAppUrl } from "@/lib/whatsapp";
 import { getProductSmsUrl } from "@/lib/sms";
+import ProductDetailActions from "@/components/catalog/ProductDetailActions";
 import {
   ArrowLeft,
   MessageSquare,
@@ -180,32 +181,12 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 </div>
               )}
 
-              {/* Order Actions: Primary SMS + Secondary WhatsApp */}
-              <div className="space-y-3 pt-2">
-                {/* Primary SMS Order Button */}
-                <a
-                  href={smsUrl}
-                  className="w-full py-4 rounded-full bg-[#062419] hover:bg-[#0c3827] text-white font-bold text-sm tracking-wide shadow-lg transition-all flex items-center justify-center gap-2"
-                >
-                  <Phone className="w-4 h-4 text-amber-300" />
-                  <span>Order via SMS (+91 9491366841)</span>
-                </a>
-
-                {/* Secondary WhatsApp Order Button */}
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3.5 rounded-full bg-[#1e7e34] hover:bg-[#155724] text-white font-bold text-sm tracking-wide shadow-md transition-all flex items-center justify-center gap-2"
-                >
-                  <MessageSquare className="w-4 h-4 text-emerald-200" />
-                  <span>Inquire / Order on WhatsApp</span>
-                </a>
-
-                <p className="text-center text-xs text-stone-500 font-light pt-1">
-                  Pay via PhonePe UPI at delivery or verified bank transfer.
-                </p>
-              </div>
+              {/* Interactive Cart & Ordering Actions */}
+              <ProductDetailActions
+                product={product}
+                smsUrl={smsUrl}
+                whatsappUrl={whatsappUrl}
+              />
             </div>
           </div>
         </div>

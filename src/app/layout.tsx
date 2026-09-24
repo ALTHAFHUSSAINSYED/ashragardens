@@ -3,6 +3,8 @@ import { Plus_Jakarta_Sans, Playfair_Display, Outfit } from "next/font/google";
 import "./globals.css";
 import ContinuousBotanicalFloating from "@/components/animations/ContinuousBotanicalFloating";
 import WateringGrowthLoader from "@/components/animations/WateringGrowthLoader";
+import { CartProvider } from "@/context/CartContext";
+import CartDrawer from "@/components/cart/CartDrawer";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -46,16 +48,21 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakarta.variable} ${playfair.variable} ${outfit.variable} scroll-smooth`}>
       <body className="font-sans antialiased bg-[#faf8f5] text-[#14261f] min-h-screen relative selection:bg-[#52b788] selection:text-[#061d15]">
-        {/* Flagship Watering & Plant Growth Animation Loader (Plays on Initial Load & Every Reload/Restart) */}
-        <WateringGrowthLoader minDurationMs={3600} />
+        <CartProvider>
+          {/* Flagship Watering & Plant Growth Animation Loader (Plays on Initial Load & Every Reload/Restart) */}
+          <WateringGrowthLoader minDurationMs={3600} />
 
-        {/* Ambient Continuous Floating Leaves, Petals & Sunlight Particles */}
-        <ContinuousBotanicalFloating />
+          {/* Ambient Continuous Floating Leaves, Petals & Sunlight Particles */}
+          <ContinuousBotanicalFloating />
 
-        {/* Main Application Content */}
-        <div className="relative z-10 flex flex-col min-h-screen">
-          {children}
-        </div>
+          {/* Cart Slide-Over Drawer */}
+          <CartDrawer />
+
+          {/* Main Application Content */}
+          <div className="relative z-10 flex flex-col min-h-screen">
+            {children}
+          </div>
+        </CartProvider>
       </body>
     </html>
   );
