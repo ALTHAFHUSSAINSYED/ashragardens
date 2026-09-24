@@ -1,0 +1,41 @@
+{
+  "brandName": "AshraGardens",
+  "displayName": "Ashra Gardens Nursery & Garden Supplies",
+  "owner": {
+    "name": "Mahaboob Khan Pathan",
+    "phone": "+91 9491366841",
+    "email": "ashragardens@gmail.com"
+  },
+  "payment": {
+    "upiId": "pathankhandme1@ybl",
+    "provider": "PhonePe",
+    "bank": "Canara Bank",
+    "accountEnding": "7489"
+  },
+  "location": {
+    "street": "Mayabazar",
+    "city": "Piduguralla",
+    "pincode": "522413",
+    "district": "Palnadu District",
+    "state": "Andhra Pradesh",
+    "country": "India"
+  },
+  "delivery": {
+    "type": "Local Doorstep Delivery",
+    "coverageRadiusKm": 30,
+    "hubCity": "Piduguralla"
+  },
+  "offerings": {
+    "primary": [
+      "Plant Pots (Ceramic, Terracotta, Plastic, Hanging)",
+      "Plant Stands & Displays (Metal, Wrought Iron, Balcony)",
+      "Nursery Accessories & Gardening Equipment (Pruners, Sprayers, Watering Cans, Tools)"
+    ],
+    "nursery": [
+      "Flowering Plants",
+      "Fruit Plants",
+      "Vegetable Plants & Seedlings",
+      "Organic Soils, Potting Mix, Vermicompost & Plant Growth Nutrients"
+    ]
+  }
+}
