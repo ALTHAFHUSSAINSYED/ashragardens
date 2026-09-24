@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import AshraLogo from "@/components/ui/AshraLogo";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 interface WateringGrowthLoaderProps {
   onComplete?: () => void;
@@ -46,11 +46,6 @@ export default function WateringGrowthLoader({
     };
   }, [minDurationMs, onComplete]);
 
-  const handleSkip = () => {
-    setIsVisible(false);
-    if (onComplete) onComplete();
-  };
-
   if (!isVisible) return null;
 
   return (
@@ -64,14 +59,6 @@ export default function WateringGrowthLoader({
           "radial-gradient(ellipse at 50% 35%, #0b3325 0%, #061d15 50%, #030d09 100%)",
       }}
     >
-      {/* Skip Button */}
-      <button
-        onClick={handleSkip}
-        className="absolute top-8 right-8 z-20 flex items-center gap-2 px-5 py-2 text-xs font-semibold uppercase tracking-wider text-emerald-200 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md border border-white/15 transition-all hover:scale-105 shadow-lg"
-      >
-        <span>Skip Intro</span>
-        <ArrowRight className="w-3.5 h-3.5" />
-      </button>
 
       {/* 3D Isometric Botanical Stage */}
       <div className="relative w-80 h-80 sm:w-96 sm:h-96 flex items-center justify-center transform-gpu">
